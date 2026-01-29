@@ -1,0 +1,88 @@
+{
+  "patients": [
+    {
+      "id": 1,
+      "name": "Maria Silva Santos",
+      "age": 45,
+      "gender": "Feminino",
+      "phone": "(11) 98765-4321",
+      "lastVisit": "14 de nov. de 2024",
+      "yearStart": 1998,
+      "recordCount": 5
+    },
+    {
+      "id": 2,
+      "name": "João Pedro Oliveira",
+      "age": 32,
+      "gender": "Masculino",
+      "phone": "(11) 98765-1234",
+      "lastVisit": "17/11/2024",
+      "yearStart": 2010,
+      "recordCount": 3
+    },
+    {
+      "id": 3,
+      "name": "Ana Carolina Costa",
+      "age": 28,
+      "gender": "Feminino",
+      "phone": "(11) 97654-3210",
+      "lastVisit": "09/11/2024",
+      "yearStart": 2015,
+      "recordCount": 8
+    },
+    {
+      "id": 4,
+      "name": "Carlos Eduardo Souza",
+      "age": 56,
+      "gender": "Masculino",
+      "phone": "(11) 96543-2109",
+      "lastVisit": null,
+      "yearStart": 2008,
+      "recordCount": 2
+    }
+  ],
+  "records": [
+    {
+      "id": 1,
+      "patientId": 1,
+      "patientName": "Maria Silva Santos",
+      "date": "14 de novembro de 2024",
+      "doctor": "Dr. Roberto Almeida",
+      "status": "Completo",
+      "method": "SOAP",
+      "recordId": "#000001",
+      "subjective": "Paciente relata dor de cabeça persistente há 3 dias, principalmente no período da tarde. Nega febre, náuseas ou vômitos.",
+      "objective": "PA: 120/80 mmHg, FC: 72 bpm, Tax: 36.5°C. Paciente lúcida e orientada. Sem sinais de rigidez de nuca.",
+      "assessment": "Cefaleia tensional. Possível relação com estresse ocupacional relatado.",
+      "plan": "Prescrever analgésico (paracetamol 500mg, 8/8h). Orientar técnicas de relaxamento e retorno em 7 dias se não houver melhora."
+    },
+    {
+      "id": 2,
+      "patientId": 1,
+      "patientName": "Maria Silva Santos",
+      "date": "10 de novembro de 2024",
+      "doctor": "Dr. Roberto Almeida",
+      "status": "Completo",
+      "method": "SOAP",
+      "recordId": "#000002",
+      "subjective": "Retorno para reavaliação. Paciente relata melhora da cefaleia.",
+      "objective": "PA: 118/78 mmHg, FC: 70 bpm, Tax: 36.4°C.",
+      "assessment": "Resposta adequada ao tratamento.",
+      "plan": "Manter orientações. Alta médica."
+    },
+    {
+      "id": 3,
+      "patientId": 2,
+      "patientName": "João Pedro Oliveira",
+      "date": "17 de novembro de 2024",
+      "doctor": "Dr. Roberto Almeida",
+      "status": "Completo",
+      "method": "SOAP",
+      "recordId": "#000003",
+      "subjective": "Paciente com tosse seca há 5 dias.",
+      "objective": "PA: 130/85 mmHg, FC: 78 bpm, Tax: 37.1°C.",
+      "assessment": "Possível infecção respiratória viral.",
+      "plan": "Hidratação, repouso. Retorno se piora em 3 dias."
+    }
+  ]
+}
