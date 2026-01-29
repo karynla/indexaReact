@@ -2,28 +2,6 @@
 
 Sistema de gerenciamento de prontuários médicos SOAP com React + Vite + JSON Server.
 
-## 📁 Estrutura de Pastas
-
-/
-├── src/
-│ ├── pages/
-│ │ ├── PatientsList.jsx + .css
-│ │ ├── PatientDetail.jsx + .css
-│ │ └── RecordDetail.jsx + .css
-│ ├── services/
-│ │ └── api.js
-│ ├── App.jsx
-│ ├── App.css
-│ ├── main.jsx
-│ └── index.css
-├── public/
-├── db.json
-├── package.json
-├── vite.config.js
-├── eslint.config.js
-├── index.html
-└── .gitignore
-
 ## 🚀 Início Rápido
 
 ### Pré-requisitos
