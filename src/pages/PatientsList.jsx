@@ -3,77 +3,107 @@ import { useNavigate } from "react-router-dom";
 import { patientsAPI } from "../services/api";
 import "./PatientsList.css";
 
-export default function PatientsList() {
-  const [patients, setPatients] = useState([]);
-  const [search, setSearch] = useState("");
+export default function PatientList() {
   const navigate = useNavigate();
+  const [patients, setPatients] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    patientsAPI.getAll().then(setPatients).catch(console.error);
+    loadPatients();
   }, []);
 
-  const filteredPatients = patients.filter((p) =>
-    p.name.toLowerCase().includes(search.toLowerCase()),
+  const loadPatients = () => {
+    setLoading(true);
+    patientsAPI
+      .getAll()
+      .then((data) => {
+        setPatients(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Erro ao carregar pacientes:", error);
+        alert("❌ Erro ao carregar lista de pacientes");
+        setLoading(false);
+      });
+  };
+
+  const filteredPatients = patients.filter((patient) =>
+    patient.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  return (
-    <div className="patients-page">
-      <header className="header">
-        <h1>Pacientes</h1>
-      </header>
+  const handlePatientClick = (id) => {
+    navigate(`/patient/${id}`);
+  };
 
-      <div className="search-bar">
+  if (loading) {
+    return <div className="loading">Carregando pacientes...</div>;
+  }
+
+  return (
+    <div className="patient-list-page">
+      <div className="header">
+        <h1>📋 Indexa - Prontuários</h1>
+        <p className="subtitle">Gerenciamento de Pacientes e Prontuários</p>
+      </div>
+
+      <div className="search-section">
         <input
           type="text"
-          placeholder="Buscar paciente..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          placeholder="🔍 Buscar paciente por nome..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
         />
-      </div>
-
-      <div className="stats">
-        <div className="stat-card">
-          <h3>Total de Pacientes</h3>
-          <p className="stat-number">{patients.length}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Atendidos Hoje</h3>
-          <p className="stat-number">2</p>
+        <div className="stats">
+          <span className="stat-badge">
+            {filteredPatients.length} paciente(s)
+          </span>
         </div>
       </div>
 
-      <div className="patients-list">
-        <h2>Lista de Pacientes</h2>
-        {filteredPatients.map((patient) => (
-          <div
-            key={patient.id}
-            className="patient-card"
-            onClick={() => navigate(`/patient/${patient.id}`)}
-          >
-            <div className="patient-avatar">
-              {patient.name
-                .split(" ")
-                .map((n) => n[0])
-                .join("")
-                .substring(0, 2)}
-            </div>
-            <div className="patient-info">
-              <h3>{patient.name}</h3>
-              <p>
-                👤 {patient.age} anos • 📞 {patient.phone}
+      <div className="patients-container">
+        {filteredPatients.length === 0 ? (
+          <div className="no-patients">
+            <p>😔 Nenhum paciente encontrado</p>
+            {searchTerm && (
+              <p className="search-tip">
+                Tente buscar por outro nome ou limpe a busca
               </p>
-              {patient.lastVisit && (
-                <p className="last-visit">
-                  📅 Última visita: {patient.lastVisit}
-                </p>
-              )}
-            </div>
-            <div className="patient-records">
-              <span className="record-count">{patient.recordCount}</span>
-              <span className="record-label">prontuários</span>
-            </div>
+            )}
           </div>
-        ))}
+        ) : (
+          <div className="patients-grid">
+            {filteredPatients.map((patient) => (
+              <div
+                key={patient.id}
+                className="patient-card"
+                onClick={() => handlePatientClick(patient.id)}
+              >
+                <div className="patient-avatar">
+                  {patient.name
+                    .split(" ")
+                    .map((n) => n[0])
+                    .join("")
+                    .substring(0, 2)}
+                </div>
+                <div className="patient-info">
+                  <h3>{patient.name}</h3>
+                  <p className="patient-details">
+                    {patient.age} anos • {patient.gender}
+                  </p>
+                  <p className="patient-phone">📞 {patient.phone}</p>
+                  {patient.lastVisit && (
+                    <p className="patient-last-visit">
+                      📅 Última visita: {patient.lastVisit}
+                    </p>
+                  )}
+                </div>
+                <div className="patient-badge">{patient.yearStart}</div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

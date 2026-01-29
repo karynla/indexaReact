@@ -18,7 +18,12 @@ const request = async (method, path, data = null) => {
     throw new Error(`HTTP ${res.status}: ${res.statusText}`);
   }
 
-  if (method === "DELETE" || res.status === 204) {
+  // DELETE retorna status 200 ou 204, sem body
+  if (method === "DELETE") {
+    return { success: true };
+  }
+
+  if (res.status === 204) {
     return null;
   }
 
@@ -39,4 +44,6 @@ export const recordsAPI = {
   getByPatient: (patientId) =>
     request("GET", `/records?patientId=${patientId}`),
   create: (data) => request("POST", "/records", data),
+  update: (id, data) => request("PUT", `/records/${id}`, data),
+  delete: (id) => request("DELETE", `/records/${id}`),
 };

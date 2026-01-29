@@ -1,109 +1,242 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { recordsAPI } from "../services/api";
+import { patientsAPI, recordsAPI } from "../services/api";
 import "./RecordDetail.css";
 
 export default function RecordDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [record, setRecord] = useState(null);
+  const [patient, setPatient] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editForm, setEditForm] = useState({});
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
-    recordsAPI.getById(id).then(setRecord).catch(console.error);
+    loadRecordData();
   }, [id]);
 
-  if (!record) return <div className="loading">Carregando...</div>;
+  const loadRecordData = async () => {
+    try {
+      const recordData = await recordsAPI.getById(id);
+      setRecord(recordData);
+      setEditForm(recordData);
+
+      const patientData = await patientsAPI.getById(recordData.patientId);
+      setPatient(patientData);
+
+      setLoading(false);
+    } catch (error) {
+      console.error("Erro ao carregar prontuário:", error);
+      alert("❌ Erro ao carregar prontuário");
+      navigate("/");
+    }
+  };
+
+  const handleEditToggle = () => {
+    setIsEditing(!isEditing);
+    if (!isEditing) {
+      setEditForm(record);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditForm({ ...editForm, [name]: value });
+  };
+
+  const handleSaveEdit = async () => {
+    try {
+      await recordsAPI.update(id, editForm);
+      setRecord(editForm);
+      setIsEditing(false);
+      alert("✅ Prontuário atualizado com sucesso!");
+    } catch (error) {
+      console.error("Erro ao atualizar:", error);
+      alert("❌ Erro ao atualizar prontuário");
+    }
+  };
+
+  const handleDeleteClick = () => {
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      await recordsAPI.delete(id);
+      alert("✅ Prontuário excluído com sucesso!");
+      navigate(`/patient/${patient.id}`);
+    } catch (error) {
+      console.error("Erro ao excluir:", error);
+      alert("❌ Erro ao excluir prontuário");
+      setShowDeleteModal(false);
+    }
+  };
+
+  if (loading) {
+    return <div className="loading">Carregando...</div>;
+  }
 
   return (
     <div className="record-detail-page">
-      <button className="back-btn" onClick={() => navigate(-1)}>
-        ← Voltar
-      </button>
-
       <div className="record-header">
-        <div className="record-icon-large">📋</div>
-        <div>
-          <h1>Prontuário SOAP</h1>
-          <p>{record.patientName}</p>
+        <button
+          className="back-btn"
+          onClick={() => navigate(`/patient/${patient.id}`)}
+        >
+          ← Voltar
+        </button>
+        <div className="header-actions">
+          <button className="btn-edit" onClick={handleEditToggle}>
+            {isEditing ? "❌ Cancelar" : "✏️ Editar"}
+          </button>
+          <button className="btn-delete" onClick={handleDeleteClick}>
+            🗑️ Excluir
+          </button>
         </div>
       </div>
 
-      <div className="record-meta">
-        <p>📅 {record.date}</p>
-        <p>👨‍⚕️ {record.doctor}</p>
+      <div className="patient-info-banner">
+        <div className="patient-avatar-small">
+          {patient.name
+            .split(" ")
+            .map((n) => n[0])
+            .join("")
+            .substring(0, 2)}
+        </div>
+        <div className="patient-info-text">
+          <h3>{patient.name}</h3>
+          <p>
+            {patient.age} anos • {patient.gender} • 📅 {record.date}
+          </p>
+        </div>
       </div>
 
-      <div className="soap-tabs">
-        <div className="tab active">SOAP Completo</div>
-        <div className="tab">4 Seções</div>
+      <div className="record-content">
+        <div className="record-meta">
+          <span className="badge badge-soap">{record.method}</span>
+          <span className="badge badge-status">{record.status}</span>
+          <span className="doctor-name">👨‍⚕️ {record.doctor}</span>
+        </div>
+
+        {isEditing && (
+          <div className="edit-actions-top">
+            <button className="btn-save" onClick={handleSaveEdit}>
+              💾 Salvar Alterações
+            </button>
+          </div>
+        )}
+
+        {/* SUBJETIVO */}
+        <div className="soap-section">
+          <h2>
+            <span className="soap-letter">S</span> Subjetivo
+          </h2>
+          {isEditing ? (
+            <textarea
+              name="subjective"
+              value={editForm.subjective}
+              onChange={handleInputChange}
+              rows="6"
+            />
+          ) : (
+            <p>{record.subjective}</p>
+          )}
+        </div>
+
+        {/* OBJETIVO */}
+        <div className="soap-section">
+          <h2>
+            <span className="soap-letter">O</span> Objetivo
+          </h2>
+          {isEditing ? (
+            <textarea
+              name="objective"
+              value={editForm.objective}
+              onChange={handleInputChange}
+              rows="6"
+            />
+          ) : (
+            <p>{record.objective || "Não informado"}</p>
+          )}
+        </div>
+
+        {/* AVALIAÇÃO */}
+        <div className="soap-section">
+          <h2>
+            <span className="soap-letter">A</span> Avaliação
+          </h2>
+          {isEditing ? (
+            <textarea
+              name="assessment"
+              value={editForm.assessment}
+              onChange={handleInputChange}
+              rows="4"
+            />
+          ) : (
+            <p>{record.assessment}</p>
+          )}
+        </div>
+
+        {/* PLANO */}
+        <div className="soap-section">
+          <h2>
+            <span className="soap-letter">P</span> Plano
+          </h2>
+          {isEditing ? (
+            <textarea
+              name="plan"
+              value={editForm.plan}
+              onChange={handleInputChange}
+              rows="6"
+            />
+          ) : (
+            <p>{record.plan || "Não informado"}</p>
+          )}
+        </div>
+
+        {/* MÉDICO RESPONSÁVEL */}
+        {isEditing && (
+          <div className="soap-section">
+            <h2>👨‍⚕️ Médico Responsável</h2>
+            <input
+              type="text"
+              name="doctor"
+              value={editForm.doctor}
+              onChange={handleInputChange}
+            />
+          </div>
+        )}
       </div>
 
-      <div className="soap-sections">
-        <div className="soap-section subjective">
-          <div className="section-header">
-            <div className="section-icon">S</div>
-            <div>
-              <h3>S - Subjetivo</h3>
-              <p>Queixas relatadas pelo paciente</p>
+      {/* Modal de Exclusão */}
+      {showDeleteModal && (
+        <div
+          className="modal-overlay"
+          onClick={() => setShowDeleteModal(false)}
+        >
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>⚠️ Confirmar Exclusão</h2>
+            <p>Tem certeza que deseja excluir este prontuário?</p>
+            <p className="warning-text">Esta ação não pode ser desfeita!</p>
+            <div className="modal-actions">
+              <button
+                className="btn-cancel"
+                onClick={() => setShowDeleteModal(false)}
+              >
+                ❌ Cancelar
+              </button>
+              <button
+                className="btn-confirm-delete"
+                onClick={handleConfirmDelete}
+              >
+                ✔️ Confirmar Exclusão
+              </button>
             </div>
           </div>
-          <div className="section-content">{record.subjective}</div>
         </div>
-
-        <div className="soap-section objective">
-          <div className="section-header">
-            <div className="section-icon">O</div>
-            <div>
-              <h3>O - Objetivo</h3>
-              <p>Dados objetivos e exame físico</p>
-            </div>
-          </div>
-          <div className="section-content">{record.objective}</div>
-        </div>
-
-        <div className="soap-section assessment">
-          <div className="section-header">
-            <div className="section-icon">A</div>
-            <div>
-              <h3>A - Avaliação</h3>
-              <p>Diagnóstico e impressão clínica</p>
-            </div>
-          </div>
-          <div className="section-content">{record.assessment}</div>
-        </div>
-
-        <div className="soap-section plan">
-          <div className="section-header">
-            <div className="section-icon">P</div>
-            <div>
-              <h3>P - Plano</h3>
-              <p>Conduta terapêutica e orientações</p>
-            </div>
-          </div>
-          <div className="section-content">{record.plan}</div>
-        </div>
-      </div>
-
-      <div className="record-footer">
-        <h4>Informações do Registro</h4>
-        <p>
-          ID do Prontuário: <span>{record.recordId}</span>
-        </p>
-        <p>
-          Data de Criação: <span>{record.date}</span>
-        </p>
-        <p>
-          Profissional: <span>{record.doctor}</span>
-        </p>
-        <p>
-          Método: <span>SOAP (Padronizado)</span>
-        </p>
-      </div>
-
-      <div className="action-buttons">
-        <button className="btn-share">🔗 Compartilhar</button>
-        <button className="btn-print">🖨️ Imprimir</button>
-      </div>
+      )}
     </div>
   );
 }
