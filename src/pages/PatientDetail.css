@@ -396,9 +396,12 @@
     gap: 15px;
   }
 
-  .patient-stats-grid {
-    grid-template-columns: 1fr;
-  }
+.patient-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  margin-bottom: 40px;
+}
 
   .records-header {
     flex-direction: column;

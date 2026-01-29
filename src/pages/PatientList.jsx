@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { patientsAPI } from "../services/api";
-import "./PatientsList.css";
+import "./PatientList.css";
 
 export default function PatientList() {
   const navigate = useNavigate();
@@ -36,6 +36,10 @@ export default function PatientList() {
     navigate(`/patient/${id}`);
   };
 
+  const handleNewPatient = () => {
+    navigate("/patient/new");
+  };
+
   if (loading) {
     return <div className="loading">Carregando pacientes...</div>;
   }
@@ -43,8 +47,16 @@ export default function PatientList() {
   return (
     <div className="patient-list-page">
       <div className="header">
-        <h1>📋 Indexa - Prontuários</h1>
-        <p className="subtitle">Gerenciamento de Pacientes e Prontuários</p>
+        <div className="header-content">
+          <div>
+            <img src="/indexaIcon.jpeg" alt="logo indexa" width="80px" />
+            <h1>Indexa - Prontuários SOAP</h1>
+            <p className="subtitle">Gerenciamento de Pacientes e Prontuários</p>
+          </div>
+          <button className="btn-new-patient" onClick={handleNewPatient}>
+            ➕ Novo Paciente
+          </button>
+        </div>
       </div>
 
       <div className="search-section">

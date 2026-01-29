@@ -212,10 +212,6 @@ export default function PatientDetail() {
           <p>Prontuários</p>
         </div>
         <div className="stat-box">
-          <h3>14</h3>
-          <p>Último Atendimento</p>
-        </div>
-        <div className="stat-box">
           <h3>{patient.yearStart}</h3>
           <p>Ano de Início</p>
         </div>

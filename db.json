@@ -1,15 +1,39 @@
 {
   "patients": [
     {
-      "id": 2,
-      "name": "João Pedro Oliveira",
+      "name": "karyn",
       "age": 32,
-      "gender": "Masculino",
-      "phone": "(11) 98765-1234",
-      "lastVisit": "17/11/2024",
-      "yearStart": 2010,
-      "recordCount": 3
+      "gender": "Feminino",
+      "phone": "48992219410",
+      "yearStart": "2026",
+      "lastVisit": null,
+      "id": 1
     }
   ],
-  "records": []
+  "records": [
+    {
+      "patientId": "1",
+      "date": "29/01/2026",
+      "subjective": "dores no corpo",
+      "objective": "",
+      "assessment": "-",
+      "plan": "",
+      "doctor": "Dra Patricia",
+      "method": "SOAP",
+      "status": "Completo",
+      "id": 1
+    },
+    {
+      "patientId": "1",
+      "date": "29/01/2026",
+      "subjective": "dores nas costas",
+      "objective": "",
+      "assessment": "falta de exercicios",
+      "plan": "fazer alguma atividade de fortalecimento da lombar",
+      "doctor": "Dra Patricia",
+      "method": "SOAP",
+      "status": "Completo",
+      "id": 2
+    }
+  ]
 }
