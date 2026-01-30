@@ -2,38 +2,13 @@
   "patients": [
     {
       "name": "karyn",
-      "age": 32,
+      "age": 33,
       "gender": "Feminino",
-      "phone": "48992219410",
+      "phone": "4444444",
       "yearStart": "2026",
       "lastVisit": null,
       "id": 1
     }
   ],
-  "records": [
-    {
-      "patientId": "1",
-      "date": "29/01/2026",
-      "subjective": "dores no corpo",
-      "objective": "",
-      "assessment": "-",
-      "plan": "",
-      "doctor": "Dra Patricia",
-      "method": "SOAP",
-      "status": "Completo",
-      "id": 1
-    },
-    {
-      "patientId": "1",
-      "date": "29/01/2026",
-      "subjective": "dores nas costas",
-      "objective": "",
-      "assessment": "falta de exercicios",
-      "plan": "fazer alguma atividade de fortalecimento da lombar",
-      "doctor": "Dra Patricia",
-      "method": "SOAP",
-      "status": "Completo",
-      "id": 2
-    }
-  ]
+  "records": []
 }

@@ -24,7 +24,7 @@ export default function NewRecord() {
       .then(setPatient)
       .catch((error) => {
         console.error("Erro ao carregar paciente:", error);
-        alert("❌ Erro ao carregar dados do paciente");
+        alert("Erro ao carregar dados do paciente");
         navigate("/");
       });
   }, [patientId, navigate]);
@@ -39,15 +39,15 @@ export default function NewRecord() {
 
     // Validações
     if (!formData.subjective.trim()) {
-      alert("⚠️ O campo 'Subjetivo' é obrigatório!");
+      alert("O campo 'Subjetivo' é obrigatório!");
       return;
     }
     if (!formData.assessment.trim()) {
-      alert("⚠️ O campo 'Avaliação' é obrigatório!");
+      alert("O campo 'Avaliação' é obrigatório!");
       return;
     }
     if (!formData.doctor.trim()) {
-      alert("⚠️ O campo 'Médico Responsável' é obrigatório!");
+      alert("O campo 'Médico Responsável' é obrigatório!");
       return;
     }
 
@@ -69,11 +69,11 @@ export default function NewRecord() {
 
       const createdRecord = await recordsAPI.create(newRecord);
 
-      alert("✅ Prontuário criado com sucesso!");
+      alert("Prontuário criado com sucesso!");
       navigate(`/patient/${patientId}`);
     } catch (error) {
       console.error("Erro ao criar prontuário:", error);
-      alert("❌ Erro ao criar prontuário. Tente novamente.");
+      alert("Erro ao criar prontuário. Tente novamente.");
       setLoading(false);
     }
   };
@@ -107,7 +107,7 @@ export default function NewRecord() {
         <button className="back-btn" onClick={handleCancel}>
           ← Voltar
         </button>
-        <h1>📋 Novo Prontuário</h1>
+        <h1>Novo Prontuário</h1>
       </div>
 
       <div className="patient-info-banner">
@@ -213,7 +213,7 @@ export default function NewRecord() {
         {/* MÉDICO RESPONSÁVEL */}
         <div className="form-section">
           <div className="section-header">
-            <h2>👨‍⚕️ Médico Responsável</h2>
+            <h2>Médico Responsável</h2>
             <span className="required-badge">Obrigatório</span>
           </div>
           <input
@@ -234,10 +234,10 @@ export default function NewRecord() {
             onClick={handleCancel}
             disabled={loading}
           >
-            ❌ Cancelar
+            Cancelar
           </button>
           <button type="submit" className="btn-submit-form" disabled={loading}>
-            {loading ? "Salvando..." : "✅ Salvar Prontuário"}
+            {loading ? "Salvando..." : "Salvar Prontuário"}
           </button>
         </div>
       </form>

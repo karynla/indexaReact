@@ -47,22 +47,26 @@ export default function PatientList() {
   return (
     <div className="patient-list-page">
       <div className="header">
-        <div className="header-content">
+        <div className="header-text">
           <div>
-            <img src="/indexaIcon.jpeg" alt="logo indexa" width="80px" />
-            <h1>Indexa - Prontuários SOAP</h1>
+            <img src="indexaIcon.png" alt="logo indexa" width="80px" />
+            <h1>Indexa - Prontuários SOAP </h1>
             <p className="subtitle">Gerenciamento de Pacientes e Prontuários</p>
           </div>
+        </div>
+        <div className="header-buttons">
+          <button className="btn-about" onClick={() => navigate("/about")}>
+            Sobre
+          </button>
           <button className="btn-new-patient" onClick={handleNewPatient}>
-            ➕ Novo Paciente
+            Novo Paciente
           </button>
         </div>
       </div>
-
       <div className="search-section">
         <input
           type="text"
-          placeholder="🔍 Buscar paciente por nome..."
+          placeholder="Buscar paciente por nome..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="search-input"

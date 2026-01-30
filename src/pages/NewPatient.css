@@ -1,6 +1,6 @@
 .new-patient-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e3a5f 0%, #2d5a7b 100%);
+  background: linear-gradient(135deg, #1c1569 0%, #2d5a7b 100%);
   padding: 20px;
 }
 
@@ -64,7 +64,7 @@
 }
 
 .required {
-  color: #dc3545;
+  color: #4a3032;
   font-weight: 700;
 }
 

@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import About from "./pages/About";
 import NewPatient from "./pages/NewPatient";
 import NewRecord from "./pages/NewRecord";
 import PatientDetail from "./pages/PatientDetail";
@@ -10,6 +11,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<PatientList />} />
+        <Route path="/about" element={<About />} />
         <Route path="/patient/new" element={<NewPatient />} />
         <Route path="/patient/:id" element={<PatientDetail />} />
         <Route path="/record/new/:patientId" element={<NewRecord />} />

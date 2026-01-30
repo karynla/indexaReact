@@ -25,15 +25,15 @@ export default function NewPatient() {
 
     // Validações
     if (!formData.name.trim()) {
-      alert("⚠️ O nome é obrigatório!");
+      alert("O nome é obrigatório!");
       return;
     }
     if (!formData.age || formData.age < 0 || formData.age > 150) {
-      alert("⚠️ Insira uma idade válida!");
+      alert("Insira uma idade válida!");
       return;
     }
     if (!formData.phone.trim()) {
-      alert("⚠️ O telefone é obrigatório!");
+      alert("O telefone é obrigatório!");
       return;
     }
 
@@ -51,11 +51,11 @@ export default function NewPatient() {
 
       const createdPatient = await patientsAPI.create(newPatient);
 
-      alert("✅ Paciente cadastrado com sucesso!");
+      alert("Paciente cadastrado com sucesso!");
       navigate(`/patient/${createdPatient.id}`);
     } catch (error) {
       console.error("Erro ao criar paciente:", error);
-      alert("❌ Erro ao cadastrar paciente. Tente novamente.");
+      alert("Erro ao cadastrar paciente. Tente novamente.");
       setLoading(false);
     }
   };
@@ -78,7 +78,7 @@ export default function NewPatient() {
         <button className="back-btn" onClick={handleCancel}>
           ← Voltar
         </button>
-        <h1>👤 Novo Paciente</h1>
+        <h1>Novo Paciente</h1>
       </div>
 
       <form className="patient-form" onSubmit={handleSubmit}>
@@ -174,10 +174,10 @@ export default function NewPatient() {
             onClick={handleCancel}
             disabled={loading}
           >
-            ❌ Cancelar
+            Cancelar
           </button>
           <button type="submit" className="btn-submit-form" disabled={loading}>
-            {loading ? "Cadastrando..." : "✅ Cadastrar Paciente"}
+            {loading ? "Cadastrando..." : "Cadastrar Paciente"}
           </button>
         </div>
       </form>

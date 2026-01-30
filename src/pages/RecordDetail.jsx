@@ -29,7 +29,7 @@ export default function RecordDetail() {
       setLoading(false);
     } catch (error) {
       console.error("Erro ao carregar prontuário:", error);
-      alert("❌ Erro ao carregar prontuário");
+      alert("Erro ao carregar prontuário");
       navigate("/");
     }
   };
@@ -51,10 +51,10 @@ export default function RecordDetail() {
       await recordsAPI.update(id, editForm);
       setRecord(editForm);
       setIsEditing(false);
-      alert("✅ Prontuário atualizado com sucesso!");
+      alert("Prontuário atualizado com sucesso!");
     } catch (error) {
       console.error("Erro ao atualizar:", error);
-      alert("❌ Erro ao atualizar prontuário");
+      alert("Erro ao atualizar prontuário");
     }
   };
 
@@ -65,11 +65,11 @@ export default function RecordDetail() {
   const handleConfirmDelete = async () => {
     try {
       await recordsAPI.delete(id);
-      alert("✅ Prontuário excluído com sucesso!");
+      alert("Prontuário excluído com sucesso!");
       navigate(`/patient/${patient.id}`);
     } catch (error) {
       console.error("Erro ao excluir:", error);
-      alert("❌ Erro ao excluir prontuário");
+      alert("Erro ao excluir prontuário");
       setShowDeleteModal(false);
     }
   };
@@ -89,10 +89,10 @@ export default function RecordDetail() {
         </button>
         <div className="header-actions">
           <button className="btn-edit" onClick={handleEditToggle}>
-            {isEditing ? "❌ Cancelar" : "✏️ Editar"}
+            {isEditing ? "Cancelar" : "Editar"}
           </button>
           <button className="btn-delete" onClick={handleDeleteClick}>
-            🗑️ Excluir
+            Excluir
           </button>
         </div>
       </div>
@@ -108,7 +108,7 @@ export default function RecordDetail() {
         <div className="patient-info-text">
           <h3>{patient.name}</h3>
           <p>
-            {patient.age} anos • {patient.gender} • 📅 {record.date}
+            {patient.age} anos • {patient.gender} • {record.date}
           </p>
         </div>
       </div>
@@ -117,13 +117,13 @@ export default function RecordDetail() {
         <div className="record-meta">
           <span className="badge badge-soap">{record.method}</span>
           <span className="badge badge-status">{record.status}</span>
-          <span className="doctor-name">👨‍⚕️ {record.doctor}</span>
+          <span className="doctor-name">{record.doctor}</span>
         </div>
 
         {isEditing && (
           <div className="edit-actions-top">
             <button className="btn-save" onClick={handleSaveEdit}>
-              💾 Salvar Alterações
+              Salvar Alterações
             </button>
           </div>
         )}
@@ -199,7 +199,7 @@ export default function RecordDetail() {
         {/* MÉDICO RESPONSÁVEL */}
         {isEditing && (
           <div className="soap-section">
-            <h2>👨‍⚕️ Médico Responsável</h2>
+            <h2>Médico Responsável</h2>
             <input
               type="text"
               name="doctor"
@@ -217,7 +217,7 @@ export default function RecordDetail() {
           onClick={() => setShowDeleteModal(false)}
         >
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>⚠️ Confirmar Exclusão</h2>
+            <h2>Confirmar Exclusão</h2>
             <p>Tem certeza que deseja excluir este prontuário?</p>
             <p className="warning-text">Esta ação não pode ser desfeita!</p>
             <div className="modal-actions">
@@ -225,13 +225,13 @@ export default function RecordDetail() {
                 className="btn-cancel"
                 onClick={() => setShowDeleteModal(false)}
               >
-                ❌ Cancelar
+                Cancelar
               </button>
               <button
                 className="btn-confirm-delete"
                 onClick={handleConfirmDelete}
               >
-                ✔️ Confirmar Exclusão
+                Confirmar Exclusão
               </button>
             </div>
           </div>

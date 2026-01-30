@@ -1,6 +1,6 @@
 .record-detail-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e3a5f 0%, #2d5a7b 100%);
+  background: linear-gradient(135deg, #1c1569 0%, #2d5a7b 100%);
   padding: 20px;
 }
 
@@ -42,12 +42,12 @@
 }
 
 .btn-edit {
-  background: #ffc107;
+  background: #d3a314b7;
   color: #1e3a5f;
 }
 
 .btn-delete {
-  background: #dc3545;
+  background: #4a3032;
   color: white;
 }
 
@@ -248,7 +248,7 @@
 .modal-content h2 {
   margin: 0 0 20px 0;
   font-size: 24px;
-  color: #dc3545;
+  color: #4a3032;
 }
 
 .modal-content p {
@@ -258,7 +258,7 @@
 }
 
 .warning-text {
-  color: #dc3545;
+  color: #4a3032;
   font-weight: 700;
   font-size: 14px;
   margin-top: 15px;
@@ -288,7 +288,7 @@
 }
 
 .btn-confirm-delete {
-  background: #dc3545;
+  background: #4a3032;
   color: white;
 }
 

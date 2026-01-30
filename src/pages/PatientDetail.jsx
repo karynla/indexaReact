@@ -49,10 +49,10 @@ export default function PatientDetail() {
       await patientsAPI.update(id, editForm);
       setPatient(editForm);
       setIsEditing(false);
-      alert("✅ Paciente atualizado com sucesso!");
+      alert("Paciente atualizado com sucesso!");
     } catch (error) {
       console.error("Erro ao atualizar:", error);
-      alert("❌ Erro ao atualizar paciente. Tente novamente.");
+      alert("Erro ao atualizar paciente. Tente novamente.");
     }
   };
 
@@ -68,8 +68,8 @@ export default function PatientDetail() {
     setIsDeleting(true);
 
     try {
-      console.log("🗑️ Iniciando exclusão do paciente:", id);
-      console.log("📋 Prontuários a excluir:", records);
+      console.log("niciando exclusão do paciente:", id);
+      console.log("Prontuários a excluir:", records);
 
       // Primeiro, deletar todos os prontuários do paciente
       if (records.length > 0) {
@@ -80,23 +80,23 @@ export default function PatientDetail() {
           await recordsAPI.delete(record.id);
         }
 
-        console.log("✅ Todos os prontuários excluídos");
+        console.log("Todos os prontuários excluídos");
       }
 
       // Depois, deletar o paciente
       console.log("Excluindo paciente...");
       await patientsAPI.delete(id);
-      console.log("✅ Paciente excluído");
+      console.log("Paciente excluído");
 
-      alert("✅ Paciente excluído com sucesso!");
+      alert("Paciente excluído com sucesso!");
 
       // Redirecionar para a lista de pacientes
       navigate("/");
     } catch (error) {
-      console.error("❌ Erro detalhado:", error);
-      console.error("❌ Erro message:", error.message);
-      console.error("❌ Erro stack:", error.stack);
-      alert(`❌ Erro ao excluir paciente: ${error.message}`);
+      console.error("Erro detalhado:", error);
+      console.error("Erro message:", error.message);
+      console.error("Erro stack:", error.stack);
+      alert(`Erro ao excluir paciente: ${error.message}`);
       setIsDeleting(false);
       setShowDeleteModal(false);
     }
@@ -116,14 +116,14 @@ export default function PatientDetail() {
         </button>
         <div className="action-buttons-top">
           <button className="btn-edit" onClick={handleEditToggle}>
-            {isEditing ? "❌ Cancelar" : "✏️ Editar"}
+            {isEditing ? "Cancelar" : "Editar"}
           </button>
           <button
             className="btn-delete"
             onClick={handleDeleteClick}
             disabled={isDeleting}
           >
-            🗑️ Excluir
+            Excluir
           </button>
         </div>
       </div>
@@ -149,7 +149,7 @@ export default function PatientDetail() {
             <h1>{patient.name}</h1>
           )}
           <p>
-            👤{" "}
+            {" "}
             {isEditing ? (
               <input
                 type="number"
@@ -195,13 +195,13 @@ export default function PatientDetail() {
             patient.phone
           )}
         </p>
-        {patient.lastVisit && <p>📅 Última visita: {patient.lastVisit}</p>}
+        {patient.lastVisit && <p>Última visita: {patient.lastVisit}</p>}
       </div>
 
       {isEditing && (
         <div className="edit-actions">
           <button className="btn-save" onClick={handleSaveEdit}>
-            💾 Salvar Alterações
+            Salvar Alterações
           </button>
         </div>
       )}
@@ -223,7 +223,7 @@ export default function PatientDetail() {
           <div className="records-header-actions">
             <span className="records-badge">{records.length} registros</span>
             <button className="btn-add-record" onClick={handleAddRecord}>
-              ➕ Novo Prontuário
+              Novo Prontuário
             </button>
           </div>
         </div>
@@ -237,7 +237,6 @@ export default function PatientDetail() {
               className="record-card"
               onClick={() => navigate(`/record/${record.id}`)}
             >
-              <div className="record-icon">📋</div>
               <div className="record-content">
                 <div className="record-date">
                   <strong>{record.date}</strong>
@@ -267,14 +266,14 @@ export default function PatientDetail() {
       {showDeleteModal && (
         <div className="modal-overlay" onClick={handleCancelDelete}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>⚠️ Confirmar Exclusão</h2>
+            <h2>Confirmar Exclusão</h2>
             <p>
               Tem certeza que deseja excluir o paciente{" "}
               <strong>{patient.name}</strong>?
             </p>
             {records.length > 0 && (
               <p className="warning-text">
-                ⚠️ Atenção: {records.length} prontuário(s) também será(ão)
+                Atenção: {records.length} prontuário(s) também será(ão)
                 excluído(s)!
               </p>
             )}
@@ -287,14 +286,14 @@ export default function PatientDetail() {
                 onClick={handleCancelDelete}
                 disabled={isDeleting}
               >
-                ❌ Cancelar
+                Cancelar
               </button>
               <button
                 className="btn-confirm-delete"
                 onClick={handleConfirmDelete}
                 disabled={isDeleting}
               >
-                {isDeleting ? "Excluindo..." : "✔️ Confirmar Exclusão"}
+                {isDeleting ? "Excluindo..." : "Confirmar Exclusão"}
               </button>
             </div>
           </div>
